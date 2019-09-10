@@ -1,0 +1,25 @@
+{
+  "name": "freshdesk-ticket-assigner",
+  "version": "1.0.0",
+  "description": "Automatically assign tickets to Freshdesk agents.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alvarcarto/freshdesk-ticket-assigner.git"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/alvarcarto/freshdesk-ticket-assigner/issues"
+  },
+  "homepage": "https://github.com/alvarcarto/freshdesk-ticket-assigner#readme",
+  "dependencies": {
+    "bluebird": "^3.5.5",
+    "lodash": "^4.17.15",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
+  }
+}

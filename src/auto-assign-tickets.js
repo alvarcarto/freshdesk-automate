@@ -21,7 +21,7 @@ async function autoAssignTickets() {
     return
   }
 
-  const lastAssignedAgentId = getLastAssignedAgentId(tickets)
+  let lastAssignedAgentId = getLastAssignedAgentId(tickets)
 
   // If no-one has been assigned in the tickets, just choose random agent
   let nextAgent
@@ -35,6 +35,9 @@ async function autoAssignTickets() {
   await BPromise.each(unassignedTickets, async (ticket) => {
     await assignTicketToAgent(ticket.id, nextAgent.id)
     console.log(`Assigned ticket #${ticket.id} to ${nextAgent.contact.name}`)
+
+    lastAssignedAgentId = nextAgent.id
+    nextAgent = getNextAgent(alvarAgents, lastAssignedAgentId)
   })
 }
 

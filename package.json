@@ -18,6 +18,7 @@
   "homepage": "https://github.com/alvarcarto/freshdesk-ticket-assigner#readme",
   "dependencies": {
     "bluebird": "^3.5.5",
+    "common-tags": "^1.8.0",
     "lodash": "^4.17.15",
     "request": "^2.88.0",
     "request-promise": "^4.2.4"

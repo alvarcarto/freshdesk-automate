@@ -26,31 +26,44 @@ async function getAgents() {
   return _.orderBy(agents, 'id')
 }
 
-async function getTickets(filter) {
-  const req = {
+async function getTickets(queryExtend) {
+  const req = _.merge({
     uri: `https://${config.FRESHDESK_DOMAIN}/api/v2/tickets`,
-    query: {
+    qs: _.merge({
       order_by: 'created_at',
       order_type: 'desc',
-      filter,
-    },
+    }, queryExtend),
     method: 'GET'
-  }
+  })
 
   const tickets = await sendRequest(req)
   return tickets
 }
 
-async function assignTicketToAgent(ticketId, agentId) {
+async function createTicket(ticket) {
   const req = {
-    uri: `https://${config.FRESHDESK_DOMAIN}/api/v2/tickets/${ticketId}`,
-    method: 'PUT',
-    body: {
-      responder_id: agentId
-    }
+    uri: `https://${config.FRESHDESK_DOMAIN}/api/v2/tickets/`,
+    method: 'POST',
+    body: ticket,
   }
 
   const updatedTicket = await sendRequest(req)
+  return updatedTicket
+}
+
+async function updateTicket(ticketId, ticket) {
+  const req = {
+    uri: `https://${config.FRESHDESK_DOMAIN}/api/v2/tickets/${ticketId}`,
+    method: 'PUT',
+    body: ticket,
+  }
+
+  const updatedTicket = await sendRequest(req)
+  return updatedTicket
+}
+
+async function assignTicketToAgent(ticketId, agentId) {
+  const updatedTicket = await updateTicket(ticketId, { responder_id: agentId })
   return updatedTicket
 }
 
@@ -80,7 +93,9 @@ function getNextAgent(agents, lastAssignedAgentId) {
 module.exports = {
   getAgents,
   getTickets,
+  createTicket,
   assignTicketToAgent,
+  updateTicket,
   filterAgentsWithEmailDomain,
   getLastAssignedAgentId,
   getNextAgent,

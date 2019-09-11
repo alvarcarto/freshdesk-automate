@@ -10,4 +10,4 @@ Forst costs extra 20€/mo/agent compared to the Garden plan.
 
 * `cp .env.sample .env` and fill blanks. See https://developers.freshdesk.com/api/
 * `npm i`
-* Run `node src/index.js`
+* Run `node src/auto-assign-tickets.js` or `node src/spam-alert.js`

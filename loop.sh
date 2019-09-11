@@ -5,5 +5,5 @@ echo "Starting to run scripts in loop .."
 while true; do
   node src/spam-alert.js
   node src/auto-assign-tickets.js
-  sleep 5
+  sleep 30
 done

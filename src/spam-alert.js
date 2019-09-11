@@ -9,7 +9,7 @@ function formatSubject(subject) {
 
 function isSpamTicketAlreadyCreated(normalTickets, spamTicket) {
   const index = _.findIndex(normalTickets, ticket => {
-    return ticket.subject === formatSubject(ticket.subject)
+    return ticket.subject === formatSubject(spamTicket.subject)
   })
 
   return index !== -1
@@ -23,6 +23,8 @@ async function warnAboutSpam() {
     if (isSpamTicketAlreadyCreated(normalTickets, ticket)) {
       return
     }
+
+    console.log('Creating a new ticket about spam message:', ticket.subject)
 
     const newTicket = {
       subject: formatSubject(ticket.subject),
@@ -47,7 +49,6 @@ async function main() {
 }
 
 main()
-  .then(() => console.log('Done.'))
   .catch((err) => {
     console.error('\nError:')
     console.error(err.stack)

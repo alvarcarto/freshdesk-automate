@@ -10,15 +10,15 @@ const {
 } = require('./freshdesk')
 
 async function autoAssignTickets() {
-  const agents = await getAgents()
-  // They return agent for their internal usage with email custserv@freshdesk.com
-  const alvarAgents = filterAgentsWithEmailDomain(agents, 'alvarcarto.com')
-
   const tickets = await getTickets()
   const unassignedTickets = _.filter(tickets, ticket => _.isNull(ticket.responder_id))
   if (unassignedTickets.length < 1) {
     return
   }
+
+  const agents = await getAgents()
+  // They return agent for their internal usage with email custserv@freshdesk.com
+  const alvarAgents = filterAgentsWithEmailDomain(agents, 'alvarcarto.com')
 
   let lastAssignedAgentId = getLastAssignedAgentId(tickets)
 

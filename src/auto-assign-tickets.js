@@ -17,7 +17,6 @@ async function autoAssignTickets() {
   const tickets = await getTickets()
   const unassignedTickets = _.filter(tickets, ticket => _.isNull(ticket.responder_id))
   if (unassignedTickets.length < 1) {
-    console.log('No unassigned tickets found.')
     return
   }
 
